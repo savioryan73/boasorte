@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Para o meu pai ❤️</title>
+<style>
+*{box-sizing:border-box}
+body{
+  margin:0;
+  min-height:100vh;
+  font-family:Arial, sans-serif;
+  background:#fff;
+  color:#222;
+  display:flex;
+  justify-content:center;
+  align-items:flex-start;
+  overflow-x:hidden;
+}
+.container{width:min(92%,620px);text-align:center;padding:30px 0}
+h1{font-size:28px;margin-bottom:8px}
+.sub{color:#777;margin-bottom:30px}
+.card{
+  background:#fff;
+  border:1px solid #e5e5e5;
+  border-radius:18px;
+  padding:32px 24px;
+  box-shadow:0 8px 30px rgba(0,0,0,.06);
+}
+.emoji{font-size:54px;margin-bottom:20px}
+input{
+  width:100%;
+  max-width:340px;
+  padding:14px 16px;
+  border:1px solid #ccc;
+  border-radius:10px;
+  font-size:16px;
+  outline:none;
+  text-align:center;
+}
+input:focus{border-color:#888}
+button{
+  margin-top:12px;
+  padding:12px 25px;
+  border:0;
+  border-radius:10px;
+  background:#222;
+  color:#fff;
+  font-size:15px;
+  cursor:pointer;
+}
+button:hover{opacity:.85}
+.erro{height:20px;color:#c44;font-size:14px;margin-top:10px}
+.hidden{display:none}
+.message{
+  margin:18px 0;
+  padding:20px;
+  border-radius:15px;
+  background:#fafafa;
+  border:1px solid #eee;
+  text-align:left;
+}
+.message strong{display:block;margin-bottom:8px}
+.message-photo{
+  width:100%;
+  max-width:500px;
+  border-radius:12px;
+  margin-top:15px;
+  display:block;
+  margin-left:auto;
+  margin-right:auto;
+}
+.photo{
+  width:100%;
+  max-height:520px;
+  object-fit:cover;
+  border-radius:18px;
+  margin-top:20px;
+}
+.final{font-size:18px;line-height:1.7}
+.fade{animation:fade .7s ease}
+@keyframes fade{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <section id="intro" class="fade">
+
+    <p class="sub">Resolva os enigmas para descobrir a surpresa.</p>
+    <div id="quiz"></div>
+  </section>
+
+  <section id="surpresa" class="hidden fade">
+    <h1>🎉 Feliz aniversário, pai! 🎉</h1>
+
+    <div class="card final">
+      <p>Hoje é um dia especial porque é o dia de comemorar a vida de uma das pessoas mais importantes para mim.</p>
+      <p>Obrigado por tudo que você faz por mim, por todos os momentos, pelos ensinamentos, pelas risadas e por sempre fazer parte da minha vida.</p>
+      <p>Espero que seu novo ano seja cheio de felicidade, saúde, paz e muitos momentos bons ao lado das pessoas que te amam.</p>
+      <p><strong>Eu te amo muito. Feliz aniversário, pai! ❤️🎂</strong></p>
+    </div>
+
+    <h2 style="margin-top:45px">💌 Mensagens para você</h2>
+
+    <!-- TROQUE OS TEXTOS ABAIXO PELAS MENSAGENS DOS SEUS AMIGOS -->
+    <div class="message">
+      <strong>Heloísa (Sua Nora)</strong>
+      "Oiiii sogrooo!!! Parabéns!!! Tudo de bom pro senhor ❤️!!".
+
+      <img class="message-photo" src="mensagem-heloisa.jpg" alt="Mensagem da Heloísa">
+    </div>
+
+    <div class="message">
+      <strong>Manu e Isaac</strong>
+      "Feliz aniversário Tio fofo!! muitos anos de vida pra você, que Deus te abençoe"
+    </div>
+
+    <div class="message">
+      <strong>Ramos</strong>
+      Fala Tio, feliz aniversário, tudo de bom pro senhor.
+    </div>
+
+    <div style="margin-top:50px">
+      <h2>❤️ E, por último...</h2>
+
+      <!-- COLOQUE A FOTO DE VOCÊS NO MESMO LOCAL DO HTML E TROQUE O NOME ABAIXO -->
+      <img class="photo" src="foto-de-voces.jpg" alt="Foto minha com meu pai">
+      <img class="photo" src="foto-2.jpg" alt="Foto minha com meu pai">
+      <img class="photo" src="foto-3.jpg" alt="Foto minha com meu pai">
+
+      <p class="final">
+        Feliz aniversário, pai.<br>
+        Que a gente ainda tenha muitos e muitos momentos juntos. ❤️
+      </p>
+    </div>
+  </section>
+
+</div>
+
+<script>
+const enigmas = [
+  {emoji:"🐕🌭", resposta:"nami"},
+  {emoji:"🧑‍🧑‍🧒", resposta:"família"},
+  {emoji:"📅🍰", resposta:"aniversário"}
+];
+
+let atual = 0;
+
+function mostrarEnigma(){
+  const e = enigmas[atual];
+  document.getElementById("quiz").innerHTML = `
+    <div class="card fade">
+      <div class="emoji">${e.emoji}</div>
+      <p><strong>Qual é a resposta?</strong></p>
+      <input id="resposta" autocomplete="off" placeholder="Digite sua resposta">
+      <br>
+      <button onclick="verificar()">Verificar</button>
+      <div id="erro" class="erro"></div>
+    </div>
+  `;
+  document.getElementById("resposta").focus();
+  document.getElementById("resposta").addEventListener("keydown", e=>{
+    if(e.key==="Enter") verificar();
+  });
+}
+
+function verificar(){
+  const valor = document.getElementById("resposta").value.trim().toLowerCase();
+  const erro = document.getElementById("erro");
+
+  if(valor === enigmas[atual].resposta){
+    atual++;
+    if(atual < enigmas.length){
+      mostrarEnigma();
+    }else{
+      document.getElementById("intro").classList.add("hidden");
+      document.getElementById("surpresa").classList.remove("hidden");
+      window.scrollTo({top:0,behavior:"smooth"});
+    }
+  }else{
+    erro.textContent = "Hmm... tenta de novo ";
+  }
+}
+
+mostrarEnigma();
+</script>
+
+</body>
+</html>
